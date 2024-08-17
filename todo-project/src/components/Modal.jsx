@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import classes from "./Modal.module.css";
 
-function Modal({ children, onClose }) {
-  //onClick={onClose}
+function Modal({ children }) {
+  const navigate = useNavigate();
+  function closeHandler() {
+    navigate("..");
+  }
+
+  //onClick={closeHandler}
   return (
     <>
       <div className={classes.backdrop}>
