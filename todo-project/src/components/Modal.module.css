@@ -15,4 +15,15 @@
   padding: 0;
   overflow: hidden;
   z-index: 1;
+  margin-top:10%;
+}
+
+.closeIcon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #34036c;
+  font-size: 25px;
+  cursor: pointer;
+
 }

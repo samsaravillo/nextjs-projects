@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './Modal.module.css';
+import { MdClose } from 'react-icons/md';
 
 function Modal({ children }) {
   const navigate = useNavigate();
@@ -10,8 +11,9 @@ function Modal({ children }) {
 
   return (
     <>
-      <div className={classes.backdrop} onClick={closeHandler}>
+      <div className={classes.backdrop}>
         <dialog open className={classes.modal}>
+          <MdClose className={classes.closeIcon} onClick={closeHandler} />
           {children}
         </dialog>
       </div>
