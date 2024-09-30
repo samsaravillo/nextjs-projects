@@ -1,8 +1,9 @@
 "use server";
 
-import { uploadImage } from "@/lib/cloudinary";
-import { storePost } from "@/lib/posts";
 import { redirect } from "next/navigation";
+import { storePost, updatePostLikeStatus } from "@/lib/posts";
+import { uploadImage } from "@/lib/cloudinary";
+import { revalidatePath } from "next/cache";
 
 export async function createPost(prevState, formData) {
   const title = formData.get("title");
@@ -32,15 +33,23 @@ export async function createPost(prevState, formData) {
   try {
     imageUrl = uploadImage(image);
   } catch (err) {
-    throw new Error('Image upload failed, post was not created. Pleast try again later.');
+    throw new Error(
+      "Image upload failed, post was not created. Pleast try again later."
+    );
   }
 
   await storePost({
-    imageUrl: imageUrl,
+    imageUrl: "", //imageUrl <-- this is getting an error,
     title,
     content,
     userId: 1,
   });
 
+  revalidatePath("/", "layout");
   redirect("/feed");
+}
+
+export async function togglePostLikeStatus(postId) {
+  await updatePostLikeStatus(postId, 2);
+  revalidatePath("/", "layout");
 }
