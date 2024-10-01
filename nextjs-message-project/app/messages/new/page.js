@@ -9,7 +9,8 @@ export default function NewMessagePage() {
 
     const message = formData.get("message");
     addMessage(message);
-    // revalidateTag("msg");
+    //revalidatePath("/messages"); //use for re-render to manage caching
+    revalidateTag("msg"); // //use for re-render to manage caching
     redirect("/messages");
   }
 
